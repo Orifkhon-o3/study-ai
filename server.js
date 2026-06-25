@@ -12,7 +12,7 @@ const { generateStudyKit, MODEL } = require('./lib/generate');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const MAX_FILE_BYTES = (Number(process.env.MAX_FILE_MB) || 15) * 1024 * 1024;
+const MAX_FILE_BYTES = (Number(process.env.MAX_FILE_MB)) * 1024 * 1024;
 const MAX_TEXT_CHARS = Number(process.env.MAX_TEXT_CHARS) || 24000; // sent to the model
 const PREVIEW_CHARS = 6000; // shown back to the user
 const MIN_TEXT_CHARS = 20; // below this we treat the document as "empty"
