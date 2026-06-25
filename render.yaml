@@ -1,0 +1,18 @@
+# Render Blueprint — optional. Lets Render auto-configure the service.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: study-ai
+    runtime: node
+    plan: free            # change to "starter" for always-on (no spin-down)
+    region: frankfurt     # or oregon / ohio / singapore — pick the closest
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false        # Render will prompt you to enter this secret
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: NODE_VERSION
+        value: "22"

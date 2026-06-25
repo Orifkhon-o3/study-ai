@@ -1,0 +1,29 @@
+{
+  "name": "study-ai",
+  "version": "1.0.0",
+  "description": "Upload a document and get an AI-generated summary and multiple-choice quiz.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mammoth": "^1.9.0",
+    "multer": "^2.0.0",
+    "officeparser": "^7.2.1",
+    "openai": "^6.0.0",
+    "tesseract.js": "^5.1.1",
+    "unpdf": "^1.6.2"
+  },
+  "allowScripts": {
+    "tesseract.js@7.0.0": true,
+    "tesseract.js@5.1.1": true
+  }
+}

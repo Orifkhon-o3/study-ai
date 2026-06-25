@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Study AI — summaries &amp; quizzes from your notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <div class="wordmark">
+          <span class="mark" aria-hidden="true">SA</span>
+          <div class="wordmark-text">
+            <h1>Study&nbsp;AI</h1>
+            <p class="eyebrow">Notes in, summary &amp; quiz out</p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <!-- Upload panel -->
+        <section class="panel" id="uploadPanel">
+          <form id="uploadForm" novalidate>
+            <div
+              class="dropzone"
+              id="dropzone"
+              role="button"
+              tabindex="0"
+              aria-label="Upload a file. Drag and drop, or activate to browse."
+            >
+              <input
+                type="file"
+                id="fileInput"
+                accept=".pdf,.docx,.pptx,.txt,.md,.png,.jpg,.jpeg,.webp,.bmp,.gif,.tiff,.tif,image/*"
+                hidden
+              />
+              <div class="dz-inner" id="dzPrompt">
+                <svg class="dz-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                <p class="dz-title">Drop a file here</p>
+                <p class="dz-sub">or <span class="dz-link">browse your device</span></p>
+                <p class="dz-formats">PDF · DOCX · PPTX · TXT · PNG / JPG (OCR)</p>
+              </div>
+
+              <div class="file-chip" id="fileChip" hidden>
+                <span class="chip-ext" id="chipExt">FILE</span>
+                <span class="chip-name" id="chipName"></span>
+                <button type="button" class="chip-remove" id="chipRemove" aria-label="Remove file">&times;</button>
+              </div>
+            </div>
+
+            <div class="controls">
+              <label class="qcount">
+                <span>Questions</span>
+                <input
+                  type="number"
+                  id="numQuestions"
+                  min="1"
+                  max="20"
+                  step="1"
+                  placeholder="5"
+                  inputmode="numeric"
+                  autocomplete="off"
+                />
+              </label>
+              <button type="submit" class="btn-primary" id="submitBtn" disabled>
+                <span class="btn-label">Generate study kit</span>
+              </button>
+            </div>
+            <p class="hint">Leave questions blank for the default of 5. Max 20.</p>
+          </form>
+        </section>
+
+        <!-- Error -->
+        <section class="alert" id="errorBox" hidden role="alert">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="alert-icon">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M12 7.5v5.5M12 16.2v.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <p class="alert-title">Something needs your attention</p>
+            <p class="alert-msg" id="errorMsg"></p>
+          </div>
+        </section>
+
+        <!-- Loading -->
+        <section class="loading" id="loadingBox" hidden aria-live="polite">
+          <div class="spinner" aria-hidden="true"></div>
+          <p class="loading-msg" id="loadingMsg">Reading your file…</p>
+          <p class="loading-sub" id="loadingSub">This usually takes a few seconds.</p>
+        </section>
+
+        <!-- Results -->
+        <section class="results" id="results" hidden>
+          <div class="results-meta" id="resultsMeta"></div>
+
+          <article class="card">
+            <h2 class="card-title">Summary</h2>
+            <p class="summary-text" id="summaryText"></p>
+          </article>
+
+          <article class="card">
+            <div class="quiz-head">
+              <h2 class="card-title">Quiz</h2>
+              <div class="quiz-status">
+                <span class="score" id="scorePill">0 / 0</span>
+                <button type="button" class="btn-ghost" id="resetQuizBtn">Reset</button>
+              </div>
+            </div>
+            <ol class="quiz" id="quizList"></ol>
+          </article>
+
+          <article class="card">
+            <button type="button" class="preview-toggle" id="previewToggle" aria-expanded="false">
+              <span>Extracted text preview</span>
+              <span class="chev" aria-hidden="true">▾</span>
+            </button>
+            <div class="preview-body" id="previewBody" hidden>
+              <pre class="preview-text" id="previewText"></pre>
+              <p class="preview-note" id="previewNote" hidden></p>
+            </div>
+          </article>
+
+          <div class="again">
+            <button type="button" class="btn-secondary" id="againBtn">Analyze another file</button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <span id="footModel">Powered by OpenAI</span>
+        <span class="dot">·</span>
+        <span>Your file is processed on your own server</span>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
